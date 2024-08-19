@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ایجاد IFrame</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #353232;
+        background-color: #f8feff;
+        -webkit-transition: background-color 0.3s, color 0.3s;
+        -o-transition: background-color 0.3s, color 0.3s;
+        transition: background-color 0.3s, color 0.3s;
+        --color-1: #00000099;
+      }
+
+      .dark-mode {
+        background-color: #13151d;
+        color: #ffffff;
+        .container {
+          background-color: #ffffff25;
+        }
+      }
+
+      .container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        max-width: 800px;
+        margin: auto;
+        padding: 0 20px 5px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"] {
+        padding: 12px;
+        border: 1px solid #c3acd0;
+        border-radius: 5px;
+        margin-right: 10px;
+        width: 200px;
+        font-size: 14px;
+        -webkit-transition: border-color 0.3s;
+        -o-transition: border-color 0.3s;
+        transition: border-color 0.3s;
+      }
+
+      input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--color-1);
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+        -webkit-transition: background-color 0.3s, -webkit-transform 0.2s;
+        transition: background-color 0.3s, -webkit-transform 0.2s;
+        -o-transition: background-color 0.3s, transform 0.2s;
+        transition: background-color 0.3s, transform 0.2s;
+        transition: background-color 0.3s, transform 0.2s,
+          -webkit-transform 0.2s;
+      }
+
+      button:hover {
+        background-color: #7743db;
+        -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        transform: scale(1.05);
+      }
+
+      button:focus {
+        outline: none;
+      }
+
+      #iframeContainer {
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: 1fr 20px 1fr 20px 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .iframeWrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background-color: #ffffff17;
+        border-radius: 10px;
+        overflow: hidden;
+        -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      iframe {
+        width: 100%;
+        height: 600px;
+        border: none;
+      }
+
+      .iframeWrapper button {
+        background-color: var(--color-1);
+        -webkit-transition: background-color 0.3s;
+        -o-transition: background-color 0.3s;
+        transition: background-color 0.3s;
+      }
+
+      .iframeWrapper button:hover {
+        background-color: var(--color-1);
+      }
+
+      #themeToggle {
+        margin-top: 20px;
+        background-color: var(--color-1);
+      }
+      .parent {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        width: 100%;
+      }
+      @media (max-width: 600px) {
+        #iframeContainer {
+          -ms-grid-columns: 1fr;
+          grid-template-columns: 1fr;
+        }
+        .parent {
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+        }
+        .parent h2 {
+          font-size: 15px;
+        }
+        button,
+        #themeToggle {
+          width: 40%;
+          margin: 0 5px;
+        }
+        input[type="text"] {
+          width: 100%;
+          margin: 0;
+          margin-top: 5px;
+        }
+        .parent-action {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="parent">
+        <h2>لطفاً آدرس سایت را وارد کنید:</h2>
+        <divc class="parent-action">
+          <button id="themeToggle" onclick="toggleTheme()">تغییر تم</button>
+          <button onclick="createIframe()">ایجاد iframe</button>
+          <input
+            dir="ltr"
+            type="text"
+            id="siteURL"
+            placeholder="http://example.com"
+          />
+        </divc>
+      </div>
+    </div>
+
+    <div id="iframeContainer"></div>
+    <script>
+      function createIframe() {
+        const url = document.getElementById("siteURL").value;
+
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+          alert("لطفا یک آدرس معتبر وارد کنید.");
+          return; // آدرس غیرمعتبر، بنابراین برگشت می‌زنیم
+        }
+
+        const wrapperDiv = document.createElement("div");
+        wrapperDiv.className = "iframeWrapper";
+
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+
+        const fullscreenButton = document.createElement("button");
+        fullscreenButton.textContent = "fc";
+        fullscreenButton.style.marginTop = "5px";
+        fullscreenButton.style.width = "20%";
+        fullscreenButton.onclick = function () {
+          if (!document.fullscreenElement) {
+            wrapperDiv.requestFullscreen().catch((err) => {
+              console.error(
+                `خطا در درخواست حالت تمام صفحه: ${err.message} (${err.name})`
+              );
+            });
+          } else {
+            document.exitFullscreen();
+          }
+        };
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "حذف";
+        deleteButton.style.marginTop = "5px";
+        deleteButton.onclick = function () {
+          wrapperDiv.remove();
+        };
+
+        wrapperDiv.appendChild(iframe);
+        wrapperDiv.appendChild(fullscreenButton);
+        wrapperDiv.appendChild(deleteButton);
+
+        const container = document.getElementById("iframeContainer");
+        container.appendChild(wrapperDiv);
+
+        // اضافه کردن شنونده به رویداد تغییر حالت تمام صفحه
+        document.addEventListener("fullscreenchange", () => {
+          if (document.fullscreenElement) {
+            iframe.style.height = "100vh"; // تغییر ارتفاع iframe در حالت تمام صفحه
+            fullscreenButton.style.display = "none"; // پنهان کردن دکمه حالت تمام صفحه
+            deleteButton.style.display = "none"; // پنهان کردن دکمه حذف
+          } else {
+            iframe.style.height = "600px"; // تنظیم ارتفاع به حالت عادی
+            fullscreenButton.style.display = "block"; // نمایش دکمه حالت تمام صفحه
+            deleteButton.style.display = "block"; // نمایش دکمه حذف
+          }
+        });
+      }
+
+      function toggleTheme() {
+        const body = document.body;
+        const button = document.getElementById("themeToggle");
+
+        body.classList.toggle("dark-mode");
+        button.classList.toggle("dark-mode");
+
+        if (body.classList.contains("dark-mode")) {
+          button.textContent = "لایت مود";
+        } else {
+          button.textContent = "دارک مود";
+        }
+      }
+    </script>
+  </body>
+</html>
